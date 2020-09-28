@@ -37,6 +37,6 @@ public class WebSocketController {
 
     @MessageMapping("/send/message")
     public void sendClient(String message) throws JsonProcessingException {
-        this.template.convertAndSend("/aaaaaaaaaaaaaaa", objectMapper.readValue(message,MessagePresenter.class));
+        this.template.convertAndSend("/message", objectMapper.readValue(message,MessagePresenter.class));
     }
 }
