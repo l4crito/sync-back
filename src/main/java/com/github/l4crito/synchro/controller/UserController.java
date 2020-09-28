@@ -1,7 +1,9 @@
 package com.github.l4crito.synchro.controller;
 
 import com.github.l4crito.synchro.presentation.UserPresenter;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.xml.bind.ValidationException;
 import java.util.Date;
@@ -21,8 +23,8 @@ public class UserController {
                         .filter(userPresenter1 -> userPresenter1.getName().equals(userPresenter.getName()))
                         .findFirst().orElse(new UserPresenter());
         if (exists.getName() != null) {
-            throw new ValidationException("Usuario previamente logueado");
-        }
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Este usuario ya se encuentra en la sala");        }
         userPresenter.setLastUpdate(new Date());
         users.add(userPresenter);
         return users;
