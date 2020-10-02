@@ -29,13 +29,13 @@ public class WebSocketController {
         this.template = template;
     }
 
-    @MessageMapping("/send/message")
+    @MessageMapping("/send/messages")
     public void sendMessage(String message) {
         this.template.convertAndSend("/message", message);
     }
 
-    @MessageMapping("/send/objectMessage")
-    public void sendClient(String message) throws JsonProcessingException {
-        this.template.convertAndSend("/message", objectMapper.readValue(message, MessagePresenter.class));
+    @MessageMapping("/send/message")
+    public void sendMessage(MessagePresenter messagePresenter) throws JsonProcessingException {
+        this.template.convertAndSend("/message", messagePresenter);
     }
 }
